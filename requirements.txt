@@ -1,0 +1,32 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Q-Commerce Platform Analysis — Python Dependencies
+# ──────────────────────────────────────────────────────────────────────────────
+# Python 3.11+
+#
+# Install:
+#   pip install -r requirements.txt
+#
+# Recommended: use a virtual environment
+#   python -m venv venv && source venv/bin/activate  (macOS/Linux)
+#   python -m venv venv && venv\Scripts\activate     (Windows)
+# ──────────────────────────────────────────────────────────────────────────────
+
+# ── Core Data Manipulation ────────────────────────────────────────────────────
+pandas>=2.0.0
+numpy>=1.26.0
+
+# ── Visualisation ─────────────────────────────────────────────────────────────
+matplotlib>=3.7.0
+seaborn>=0.13.0
+plotly>=5.18.0          # Interactive operational efficiency bubble chart
+
+# ── Statistical Analysis ──────────────────────────────────────────────────────
+scipy>=1.11.0           # Mann-Whitney U test, Pearson correlation
+
+# ── Preprocessing ─────────────────────────────────────────
+scikit-learn>=1.3.0     # MinMaxScaler — operational efficiency score
+
+# ── Notebook Environment ──────────────────────────────────────────────────────
+jupyter>=1.0.0
+notebook>=7.0.0
+ipykernel>=6.25.0
