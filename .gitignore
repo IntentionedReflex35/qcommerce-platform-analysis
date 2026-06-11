@@ -2,7 +2,6 @@
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 .virtual_documents/
-# Prevents conflicts if you use interactive python files
 *.pyc
 
 # --- Python & Environments ---
@@ -28,8 +27,6 @@ ipython_config.py
 *.swp
 
 # --- Data & Large Files (Highly Recommended!) ---
-# Best practice is to keep raw data out of Git. 
-# Unleash these if you keep data in folders named 'data' or 'inputs'
 data/
 # inputs/
 *.csv
@@ -41,6 +38,3 @@ data/
 # --- OS Specific Files ---
 .DS_Store
 Thumbs.db
-
-# --- Other Files ---
-notebooks/QCommerce_Portfolio_Ready.ipynb
