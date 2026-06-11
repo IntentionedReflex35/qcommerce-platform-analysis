@@ -21,43 +21,48 @@ Q-Commerce is one of the most operationally demanding segments in Indian e-comme
 
 This analysis answers four core business questions:
 
-| # | Question |
-|---|----------|
-| 1 | Which platforms generate the most revenue and why? |
-| 2 | Who are the customers and what are they buying? |
+| # | Question                                                       |
+|---|----------------------------------------------------------------|
+| 1 | Which platforms generate the most revenue and why?             |
+| 2 | Who are the customers and what are they buying?                |
 | 3 | Which platforms are operationally fastest and most consistent? |
-| 4 | Does offering discounts actually increase order value? |
+| 4 | Does offering discounts actually increase order value?         |
 
 ---
 
 ## Key Findings
 
-> 💰 **Revenue — No dominant player.** The top 7 platforms sit within **~11%** of each other in total revenue. No platform holds a sustainable revenue moat — competition is decided on speed and experience, not scale.
+>  **Revenue — No dominant player.** The top 7 platforms sit within **~11%** of each other in total revenue. No platform holds a sustainable revenue moat — competition is decided on speed and experience, not scale.
 
-> 🧑‍🤝‍🧑 **Demographics — The category defines the customer.** The **21–50 age band drives ~71%** of all orders, uniformly across every platform. Age distribution is a category-level trait, not a differentiator any single platform has developed.
+>  **Demographics — The category defines the customer.** The **21–50 age band drives ~71%** of all orders, uniformly across every platform. Age distribution is a category-level trait, not a differentiator any single platform has developed.
 
-> ⚡ **Delivery — Zepto leads on speed.** Zepto averages **9.6 minutes** delivery time and **0.839 km/min** — the fastest on both measures. Delivery time standard deviation is ~5 minutes across all platforms, indicating industry-wide infrastructure constraints rather than individual platform failures.
+>  **Delivery — Zepto leads on speed.** Zepto averages **9.6 minutes** delivery time and **0.839 km/min** — the fastest on both measures. Delivery time standard deviation is ~5 minutes across all platforms, indicating industry-wide infrastructure constraints rather than individual platform failures.
 
-> 🏙️ **Geography — Demand is nationwide.** The revenue gap between the #1 city (Gurgaon) and the #10 city (Pune) is only **~17%**. Metro concentration is not a viable long-term strategy.
+>  **Geography — Demand is nationwide.** The revenue gap between the #1 city (Gurgaon) and the #10 city (Pune) is only **~17%**. Metro concentration is not a viable long-term strategy.
 
-> 💸 **Discounts — Selection bias, not demand creation.** Discounted orders carry a **~42% higher average order value** (₹677 vs ₹477, Mann-Whitney U, p < 0.001) — but this reflects high-intent buyers seeking discounts, not discounts manufacturing demand. Blanket discount strategies leak margin without generating incremental basket growth.
+>  **Discounts — Selection bias, not demand creation.** Discounted orders carry a **~42% higher average order value** (₹677 vs ₹477, Mann-Whitney U, p < 0.001) — but this reflects high-intent buyers seeking discounts, not discounts manufacturing demand. Blanket discount strategies leak margin without generating incremental basket growth.
 
-> 📦 **Bulk buyers — A distinct, underserved segment.** ~24,500 outlier orders represent a high-value cohort averaging **₹1,176 per order — 2.1× the standard customer**. 72.4% use discounts vs 39.3% in the main dataset. A formal B2B or subscription tier would capture this segment's revenue without eroding standard consumer pricing.
+>  **Bulk buyers — A distinct, underserved segment.** ~24,500 outlier orders represent a high-value cohort averaging **₹1,176 per order — 2.1× the standard customer**. 72.4% use discounts vs 39.3% in the main dataset. A formal B2B or subscription tier would capture this segment's revenue without eroding standard consumer pricing.
 
 ---
 
 ## Dataset
 
-| Property | Detail |
-|----------|--------|
-| Records | 1,000,000 synthetic orders |
-| Platforms | Swiggy Instamart, Blinkit, Zepto, Big Basket, Flipkart Minutes, Amazon Now, Dunzo, Jio Mart |
-| Cities | 10 major Indian metros + unclassified |
+| Property   | Detail                                                                                                                                                                                                                                           |
+|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Records    | 1,000,000 synthetic orders                                                                                                                                                                                                                       |
+| Platforms  | Swiggy Instamart, Blinkit, Zepto, Big Basket, Flipkart Minutes, Amazon Now, Dunzo, Jio Mart                                                                                                                                                      |
+| Cities     | 10 major Indian metros + unclassified                                                                                                                                                                                                            |
 | Key Fields | Order ID, Company (Platform), City, Customer Age, Order Value (INR), Delivery Time (Minutes), Distance (Km), Items Count, Product Category, Payment Method, Customer Rating (1–5), Discount Applied (binary flag), Delivery Partner Rating (1–5) |
-| Type | Synthetic — generated to reflect realistic Q-Commerce distributions |
+| Type       | Synthetic — generated to reflect realistic Q-Commerce distributions                                                                                                                                                                              |
 
-> **Note:** Due to file size (~90MB), the raw dataset is not tracked by this repository. See [Reproducing This Analysis](#reproducing-this-analysis) for setup instructions.
+> **Note on synthetic data:** This dataset was synthetically generated to reflect realistic Q-Commerce distributions. It was selected to allow demonstration of the complete analytical lifecycle — auditing, cleaning,
+> outlier treatment, statistical testing, and strategic recommendation — without the access constraints of proprietary platform data. Findings
+> are illustrative rather than operational claims about specific companies.
 
+> Due to file size (~90MB), the raw dataset is not tracked by this repository.
+> See [Reproducing This Analysis](#reproducing-this-analysis) for setup instructions.
+ 
 ---
 
 ## Methodology
@@ -66,12 +71,12 @@ This analysis answers four core business questions:
 
 A systematic audit prior to analysis identified four categories of data quality issues. Each was resolved through a documented, analytically justified treatment:
 
-| Issue | Scale | Treatment | Rationale |
-|-------|-------|-----------|-----------|
-| City — null values | ~5.2% of rows | Filled with `'Other'` | Rows otherwise complete; dropping would bias city-level analysis |
-| Items Count — nulls | Small subset | Rows dropped | Core metric; imputation would fabricate basket size data |
-| Customer Rating — nulls | Partial | Group-median by platform | Medians differ by platform; global impute erases differentiation |
-| Partner Rating — nulls | Partial | Group-mean by platform | Missingness confirmed random via delivery time correlation check |
+| Issue                   | Scale         | Treatment                | Rationale                                                        |
+|-------------------------|---------------|--------------------------|------------------------------------------------------------------|
+| City — null values      | ~5.2% of rows | Filled with `'Other'`    | Rows otherwise complete; dropping would bias city-level analysis |
+| Items Count — nulls     | Small subset  | Rows dropped             | Core metric; imputation would fabricate basket size data         |
+| Customer Rating — nulls | Partial       | Group-median by platform | Medians differ by platform; global impute erases differentiation |
+| Partner Rating — nulls  | Partial       | Group-mean by platform   | Missingness confirmed random via delivery time correlation check |
 
 
 ### Outlier Treatment
@@ -90,26 +95,26 @@ Outlier rows were **not discarded**. They were retained in a separate dataset (~
 
 Platforms were ranked on a composite score combining **total order volume** and **average delivery speed (km/min)**. Both dimensions were Min-Max scaled to [0, 1] before combination — preventing unit dominance. Weights are equal by design as a methodologically neutral baseline; a parameterised variant would reflect business-specific priorities.
 
-| Rank | Platform | Score Driver | Implication |
-|------|----------|--------------|-------------|
-| 1 | Zepto | Highest delivery speed (km/min) | Speed is the core differentiator; dark store density is likely high |
-| 2–3 | Dunzo, Blinkit | Short distances, fast times | Strong hyperlocal infrastructure; volume is the limiting factor |
-| 4–6 | Swiggy, Big Basket, Flipkart | High volume, average speed | Scale offsets moderate speed; revenue position is defensible |
-| 7 | Amazon Now | Mid-tier on both dimensions | No operational differentiator; brand trust is the primary asset |
-| 8 | Jio Mart | Comparable distance, slow delivery | Logistics inefficiency — not a geography problem; correctable |
+| Rank | Platform                     | Score Driver                       | Implication                                                         |
+|------|------------------------------|------------------------------------|---------------------------------------------------------------------|
+| 1    | Zepto                        | Highest delivery speed (km/min)    | Speed is the core differentiator; dark store density is likely high |
+| 2–3  | Dunzo, Blinkit               | Short distances, fast times        | Strong hyperlocal infrastructure; volume is the limiting factor     |
+| 4–6  | Swiggy, Big Basket, Flipkart | High volume, average speed         | Scale offsets moderate speed; revenue position is defensible        |
+| 7    | Amazon Now                   | Mid-tier on both dimensions        | No operational differentiator; brand trust is the primary asset     |
+| 8    | Jio Mart                     | Comparable distance, slow delivery | Logistics inefficiency — not a geography problem; correctable       |
 
 ---
 
 ## Strategic Recommendations
 
-| # | Recommendation | Anchored To |
-|---|----------------|-------------|
-| R1 | **Invest in dark store expansion** — speed gaps are the primary revenue differentiator, not brand or assortment | F1, F5 |
-| R2 | **Replace blanket discounts with precision mechanics** — minimum-spend thresholds, cart-abandonment offers, and loyalty tiers | F6 |
-| R3 | **Formalise a B2B / bulk buyer subscription tier** — pre-negotiated pricing and dedicated SLA, protecting standard pricing integrity | F6, §7 |
-| R4 | **Pursue hub-and-spoke geographic expansion** — secondary cities show near-equal demand density to top metros | F4 |
-| R5 | **Invest in delivery partner training** — speed does not drive ratings; interpersonal quality and packaging care do | F5 |
-| R6 | **Audit Jio Mart's routing and partner deployment** — delivery latency is an operations problem, not a geography problem | F5, §6 |
+| #  | Recommendation                                                                                                                       | Anchored To |
+|----|--------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| R1 | **Invest in dark store expansion** — speed gaps are the primary revenue differentiator, not brand or assortment                      | F1, F5      |
+| R2 | **Replace blanket discounts with precision mechanics** — minimum-spend thresholds, cart-abandonment offers, and loyalty tiers        | F6          |
+| R3 | **Formalise a B2B / bulk buyer subscription tier** — pre-negotiated pricing and dedicated SLA, protecting standard pricing integrity | F6, §7      |
+| R4 | **Pursue hub-and-spoke geographic expansion** — secondary cities show near-equal demand density to top metros                        | F4          |
+| R5 | **Invest in delivery partner training** — speed does not drive ratings; interpersonal quality and packaging care do                  | F5          |
+| R6 | **Audit Jio Mart's routing and partner deployment** — delivery latency is an operations problem, not a geography problem             | F5, §6      |
 
 ---
 
@@ -175,28 +180,28 @@ If you would like to run the notebook yourself:
 - **No time dimension** — a timestamp column would enable seasonality, day-of-week demand patterns and cohort retention analysis, all critical for Q-Commerce operational planning.
 - **Rating imputation suppresses signal** — future analyses should source ratings from a system where missingness is tracked at collection time (was the app closed? delivery refused?).
 - **Equal-weight efficiency score** — a parameterised variant weighted by business-specific KPIs would produce a more actionable platform ranking.
-- **Potential next project:** Build a delivery time prediction model (regression) using `Distance_Km`, `Company`, `City`, and `Items_Count` as features'
+- **Potential next project:** Build a delivery time prediction model (regression) using `Distance_Km`, `Company`, `City`, and `Items_Count` as features.
 
 ---
 
 ## Tools & Libraries
 
-| Category | Library | Purpose |
-|----------|---------|---------|
-| Data manipulation | `pandas`, `numpy` | Cleaning, aggregation, feature engineering |
-| Visualisation | `matplotlib`, `seaborn` | Static charts and heatmaps |
-| Interactive visualisation | `plotly` | Operational efficiency bubble chart |
-| Statistical testing | `scipy` | Mann-Whitney U, Pearson correlation |
-| Preprocessing | `scikit-learn` | Min-Max scaling for efficiency score |
-| Path management | `pathlib` | Cross-platform file path resolution |
+| Category                  | Library                 | Purpose                                    |
+|---------------------------|-------------------------|--------------------------------------------|
+| Data manipulation         | `pandas`, `numpy`       | Cleaning, aggregation, feature engineering |
+| Visualisation             | `matplotlib`, `seaborn` | Static charts and heatmaps                 |
+| Interactive visualisation | `plotly`                | Operational efficiency bubble chart        |
+| Statistical testing       | `scipy`                 | Mann-Whitney U, Pearson correlation        |
+| Preprocessing             | `scikit-learn`          | Min-Max scaling for efficiency score       |
+| Path management           | `pathlib`               | Cross-platform file path resolution        |
 
 ---
 
 ## Author
 
 **Jeshurun Nana Kojo Ansah**
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
+- GitHub: [Jeshurun Nana Kojo Ansah](https://github.com/IntentionedReflex35)
+- LinkedIn: [linkedin.com/in/jeshurun-nana-kojo-ansah](https://www.linkedin.com/in/jeshurun-nana-kojo-ansah-08bbb9408)
 
 ---
 

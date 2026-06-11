@@ -8,6 +8,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
 # Virtual environments
 .venv/
 venv/
@@ -28,6 +29,7 @@ ipython_config.py
 
 # --- Data & Large Files (Highly Recommended!) ---
 data/
+!data/README.md
 # inputs/
 *.csv
 *.xlsx
