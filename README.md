@@ -5,6 +5,7 @@
 ![Pandas](https://img.shields.io/badge/Pandas-2.0+-150458?style=flat&logo=pandas&logoColor=white)
 ![Plotly](https://img.shields.io/badge/Plotly-Interactive-3F4F75?style=flat&logo=plotly&logoColor=white)
 ![SciPy](https://img.shields.io/badge/SciPy-Statistical%20Testing-8CAAE6?style=flat&logo=scipy&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat)
 ![Status](https://img.shields.io/badge/Status-Complete-2E8B57?style=flat)
 
 ---
@@ -196,6 +197,12 @@ If you would like to run the notebook yourself:
 | Statistical testing       | `scipy`                 | Mann-Whitney U, Pearson correlation        |
 | Preprocessing             | `scikit-learn`          | Min-Max scaling for efficiency score       |
 | Path management           | `pathlib`               | Cross-platform file path resolution        |
+
+---
+
+## 📄 License
+
+This project is open source under the [MIT License](LICENSE). Use it, fork it, learn from it, share it.
 
 ---
 
