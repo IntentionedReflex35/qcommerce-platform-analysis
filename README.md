@@ -171,6 +171,7 @@ If you would like to run the notebook yourself:
 
 4. **Add the raw dataset**
    Place `quick_commerce_data_raw.csv` inside the `data/` directory. The notebook will generate all cleaned and outlier datasets automatically on first run.
+   Download `quick_commerce_data_raw.csv` data file [here](https://drive.google.com/file/d/1KT04J6Sy4sDrYZpHHfSX5WrUqC3PYyjW/view?usp=drive_link).
 
 5. **Open and run the notebook**
    ```bash
