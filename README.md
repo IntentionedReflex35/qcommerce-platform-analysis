@@ -134,6 +134,7 @@ Platforms were ranked on a composite score combining **total order volume** and 
 ├── src/
 │   └── config.py                         # Centralised path configuration
 ├── .gitignore
+├── LICENSE
 ├── README.md
 └── requirements.txt
 ```
